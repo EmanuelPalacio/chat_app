@@ -1,0 +1,23 @@
+.dashboard{
+  display: grid;
+  grid-template-areas: 
+  "chat         contacts"
+  "sendMenssage contacts";
+  grid-template-columns: 70vw 30vw;
+  grid-template-rows: 80vh 20vh;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.dashboard__view-chat{
+  grid-area: chat;
+  padding: 20px;
+  background-color: white;
+}
+.dashboard__contacts{
+  grid-area: contacts;
+}
+.dashboard__send-menssage{
+  grid-area: sendMenssage;
+  background-color: white;
+}
