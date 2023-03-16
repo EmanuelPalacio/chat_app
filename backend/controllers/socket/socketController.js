@@ -1,14 +1,16 @@
-import MenssagesSchema from "../../models/menssagesSchema.js";
+import { io } from "../../server.js";
 import {
   createMenssage,
   findMenssages,
 } from "../../service/requestDataBase.js";
 
 export default async function socketController(socket) {
+  console.log("se conecto ", socket.id);
+  socket.emit("viewMenssage", await findMenssages());
+
   socket.on("menssage", async ({ msg, id }) => {
     const date = new Date();
-    createMenssage(date, msg, id);
+    await createMenssage(date, msg, id);
+    io.emit("viewMenssage", await findMenssages());
   });
-
-  socket.emit("viewMenssage", await findMenssages());
 }
