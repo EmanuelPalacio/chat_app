@@ -1,39 +1,44 @@
-import { useEffect } from "react";
 import jwt_decode from "jwt-decode";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../../context/UserProvider.jsx";
+import { findUser, googleLogin } from "../../../service/fetchApi.js";
 
 export default function GoogleSingIn (){
-
+  const {setDataUser} = useContext(UserContext)
+  const navigate = useNavigate()
   async function  handleCredentialResponse(response) {
     const googleToken = response.credential
+
     const {name,email,picture:image} = jwt_decode(googleToken)
-    const data = await fetch("http://localhost:8080/api/auth/googleLogin",{
-    method:"POST",
-    headers: {
-      "Content-Type":"application/json"
-    },
-    body: JSON.stringify({
+    const data = await googleLogin({
       name,
       email,
       image,
       google:true
     })
-    })
-    const {token}= await data.json()
-    localStorage.setItem("token", JSON.stringify(token))
+    const {token, user}= await data
+    if (token){
+      const data = await findUser(user._id,token)
+      setDataUser(data.user)
+      localStorage.setItem("token", JSON.stringify(token))
+      navigate(`/user/${user._id}`)
+    }
 }
-    useEffect(()=>{
-      window.onload = function () {
-        google.accounts.id.initialize({
-          client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-          callback: handleCredentialResponse
-        });
-        google.accounts.id.renderButton(
-          document.getElementById("buttonDiv"),
-          { theme: "outline", size: "medium",logo_alignment: "center" }  // customization attributes
-        );
-        
-      }
-    },[])
+  useEffect(()=>{
+    window.onload = function () {
+      google.accounts.id.initialize({
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("buttonDiv"),
+        { theme: "outline", size: "large",logo_alignment: "center" }  // customization attributes
+      );
+      
+    }
+  },[])
 
 
-  return(    <div id="buttonDiv"></div> )}
+  return(    <div id="buttonDiv"></div> )
+}

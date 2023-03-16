@@ -1,6 +1,5 @@
 import fs from "fs";
 import { request, response } from "express";
-import ProductSchema from "../../models/productShechema.js";
 import UserSchema from "../../models/userSchema.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -13,7 +12,6 @@ const updateImage = async (req = request, res = response) => {
   const { filename } = req.file;
 
   colecction === "user" && (model = UserSchema);
-  colecction === "products" && (model = ProductSchema);
 
   try {
     const data = await model.findById(id);

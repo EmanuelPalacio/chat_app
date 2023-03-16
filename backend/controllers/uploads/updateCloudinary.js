@@ -1,5 +1,4 @@
 import { request, response } from "express";
-import ProductSchema from "../../models/productShechema.js";
 import UserSchema from "../../models/userSchema.js";
 import {
   uploadCloudinaryService,
@@ -12,7 +11,6 @@ const uploadImage = async (req = request, res = response) => {
   const { path, originalname } = req.file;
 
   colecction === "user" && (model = UserSchema);
-  colecction === "products" && (model = ProductSchema);
 
   try {
     const { url, public_id } = await uploadCloudinaryService(

@@ -1,4 +1,3 @@
-import "../css/chatContact.css"
 
 export default function ChatContact (){
 

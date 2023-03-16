@@ -35,6 +35,7 @@ const user = Schema({
     type: Boolean,
     default: false,
   },
+  msg: { type: Array },
 });
 //Metodo para renombrar id de mongo
 /* UsuarioSchema.methods.toJSON = function() {
