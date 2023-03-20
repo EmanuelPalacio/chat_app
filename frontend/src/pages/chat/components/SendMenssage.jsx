@@ -9,6 +9,7 @@ export default function SendMenssage (){
   const [msg,setMsg] = useState("")
   const handleMenssage = (event)=>{
     setMsg(event.target.value)
+    console.log(event.target.value)
   }
   const handleSubmit = (event)=>{
     event.preventDefault()
@@ -18,6 +19,7 @@ export default function SendMenssage (){
       id: user._id
     }
     socket.emit("menssage",data)
+    event.target.reset()
   }
   return(
     <form onSubmit={handleSubmit} >

@@ -18,6 +18,7 @@
   grid-area: chat;
   padding: 20px;
   border: 2px solid white;
+  overflow-y: auto;
 }
 
 .mennsage{
@@ -47,6 +48,7 @@
 
 
 .dashboard__send-menssage{
+  display: inherit;
   grid-area: sendMenssage;
   background-color: white;
 }
