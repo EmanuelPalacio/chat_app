@@ -1,10 +1,10 @@
 
-export default function ChatContact (){
+export default function ChatContact ({name,id}){
 
   return(
-    <button className="contact">
-      <p className="contact__name"></p>
-      <p className="contact__id"></p>
+    <button className="contact contact--select" >
+      <p className="contact__name">{name}</p>
+      {id && <p className="contact__id"></p>}
     </button>
   )
 }

@@ -37,6 +37,9 @@ export default function GoogleSingIn (){
       );
       
     }
+    return ()=>{
+      google.accounts.id.disableAutoSelect()
+    }
   },[])
 
 

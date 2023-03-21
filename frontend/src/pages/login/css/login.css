@@ -1,13 +1,11 @@
-body{
-  background-image: url("./assets/background.svg");
-  background-size: 30%;
-}
 .loginPage{
   min-width: 100vh;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("/assets/background.svg");
+  background-size: 30%;
 }
 .login{
   display: flex;
@@ -19,6 +17,7 @@ body{
   width: 60vh;
   border-radius: 30px;
   background-color: #ebebeb;
+  border: 2px solid #ff5714;
 }
 
 .formContent{
@@ -53,6 +52,8 @@ button{
   width: 200px;
   height: 30px;
   border-radius: 30px;
+  border: 1px solid #ff5714;
+  font-size: 1rem;
 }
 button:hover{
   background-color: #24242454;

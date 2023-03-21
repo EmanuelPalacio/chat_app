@@ -19,7 +19,7 @@ export default function Dashboard (){
     <section className="dashboard" >
         <ViewMenssage/>
       <div className="dashboard__contacts">
-        <ChatContact/>
+        <ChatContact name="CHAT GENERAL"/>
       </div>
       <div className="dashboard__send-menssage">
         <SendMenssage/>
