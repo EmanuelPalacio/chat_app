@@ -15,8 +15,14 @@ export default function ViewMenssage (){
   return(
     <div className="dashboard__view-chat">
       {msg.map((menssage, index) =>{
-        const messageSender = menssage.user === user._id ? "mennsage mennsage--send" : "mennsage"
-        return (<p className={messageSender} key={index} >{menssage.msg}</p>)
+        const messageSender = menssage.user._id === user._id ? "menssage menssage--send" : "menssage"
+        return (
+        <div className={messageSender} key={index} >
+            {menssage.user._id !== user._id && <p className="menssage__name">{menssage.user.name}</p>}
+            <p>{menssage.msg}</p>
+        </div>
+        )
+
       })}
     </div>
   )

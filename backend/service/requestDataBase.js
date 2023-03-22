@@ -6,6 +6,6 @@ export const createMenssage = async (date, msg, id) => {
 };
 
 export const findMenssages = async () => {
-  const data = await MenssagesSchema.find();
+  const data = await MenssagesSchema.find().populate("user");
   return data;
 };

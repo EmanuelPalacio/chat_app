@@ -11,6 +11,7 @@ const menssages = Schema({
   },
   user: {
     type: Schema.Types.ObjectId,
+    ref: "users",
     required: [true, "El usuario es obligatorio"],
   },
 });

@@ -45,17 +45,22 @@
 
 
 
-.mennsage{
+.menssage{
   width: 50%;
-  padding: 10px 30px;
+  padding: 10px 20px;
+  margin: 5px 0;
   border-radius: 15px;
   color: white;
   background-color: #212121;
   overflow-wrap: break-word;
 }
-.mennsage--send{
+.menssage--send{
   align-self: end;
   background-color: #ff5714;
+}
+.menssage__name{
+  color: #ff5714;
+  font-size: 0.9rem;
 }
 
 .dashboard__contacts{
@@ -112,7 +117,7 @@
   background-position: center;
   background-size: 50%;
   transition: all;
-  transition-duration: 0.5s;
+  transition-duration: 0.2s;
 }
 .dashboard__send-menssage > form button:hover{
   background-color: #4d4d4d;

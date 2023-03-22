@@ -8,6 +8,7 @@ import { v2 as cloudinary } from "cloudinary";
 import router from "./routes/index.routes.js";
 import socketController from "./controllers/socket/socketController.js";
 
+dotenv.config();
 /* ------ Create Server ------- */
 const app = express();
 const server = createServer(app);
@@ -19,8 +20,12 @@ export const io = new Server(server, {
 });
 
 /* ------ SERVER CONFIG ------- */
+const PORT =
+  process.env.NODE_ENV === "development"
+    ? process.env.DEV_PORT
+    : process.env.PORT;
 
-dotenv.config();
+console.log(PORT, process.env.NODE_ENV);
 
 app.use(
   cors({
@@ -32,7 +37,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api", router);
-server.listen(process.env.PORT, () => {
+server.listen(PORT, () => {
   console.log("server iniciado");
 });
 
