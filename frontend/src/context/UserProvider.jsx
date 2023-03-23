@@ -1,21 +1,43 @@
-import { createContext, useState } from "react";
+import { createContext, useReducer } from "react";
 
 export const UserContext = createContext()
 
-export default function UserProvider({children}){
-  
-  const [user,setUser] = useState(JSON.parse(localStorage.getItem("user")))
+const initialState = {
+  user:{},
+  login:false,
+  token:""
+}
+const reducer = (state,action)=>{
+  switch (action.type) {
+    case "setUser":
+      return {
+        user:action.value,
+      };
+    case "setToken":
+      return {
+        ...state,
+        token:action.value
+      }
+    
+      case "setLogin":
+        return {
+          user:action.value.user,
+          token:action.value.token,
+          login:true
+        }
+    
+    default:
+      return state
+  }
 
-  const setDataUser = (user) =>{
-    setUser(user)
-    localStorage.setItem("user",JSON.stringify(user))
-  }
-  const clearDataUser = () =>{
-    setDataUser(null)
-  }
+}
+
+export default function UserProvider({children}){
+  const [state,dispatch]= useReducer(reducer, initialState)
+  localStorage.getItem("user") && dispatch({type:"setToken", value: JSON.parse(localStorage.getItem("token"))})
 
   return(
-    <UserContext.Provider value={{user, setDataUser,clearDataUser}} >
+    <UserContext.Provider value={{login:state.login,user:state.user, dispatch,}} >
       {children}
     </UserContext.Provider>
   )

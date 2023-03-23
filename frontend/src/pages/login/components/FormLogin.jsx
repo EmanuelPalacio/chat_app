@@ -7,7 +7,7 @@ import {findUser, login} from "../../../service/fetchApi.js"
 export default function FormLogin ({register}){
   const navigate = useNavigate()
   const [inputValue, setInputValue]= useState()
-  const {setDataUser, user:userContext} = useContext(UserContext)
+  const {dispatch} = useContext(UserContext)
   const handleChangeInput = (input) => {
     const { name, value } = input.target;
     setInputValue({
@@ -18,12 +18,16 @@ export default function FormLogin ({register}){
   const handleSubmit = async (elem)=>{
     elem.preventDefault()
     
-    const {user,token} =  await login(inputValue)
+    try {
+      const {user,token} =  await login(inputValue)
     if (token){
       const data = await findUser(user._id,token)
-      setDataUser(data.user)
+      /* dispatch({type:"setToken", value:{} }) */
       localStorage.setItem("token", JSON.stringify(token))
       navigate(`/user/${user._id}`)
+    }
+    } catch (error) {
+      console.log(error)
     }
     
   }

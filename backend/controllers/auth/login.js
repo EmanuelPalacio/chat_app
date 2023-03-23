@@ -27,9 +27,8 @@ const login = async (req = request, res = response) => {
       token,
     });
   } catch (error) {
-    res.status(400).json({
+    res.status(500).json({
       ok: false,
-      msg: "Error al ingresar",
       error,
     });
   }
