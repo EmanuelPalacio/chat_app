@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const menssages = Schema({
+const menssage = Schema({
   date: {
     type: Date,
     required: [true, "la fecha es obligatoria"],
@@ -15,5 +15,6 @@ const menssages = Schema({
     required: [true, "El usuario es obligatorio"],
   },
 });
-const MenssagesSchema = model("menssages", menssages);
-export default MenssagesSchema;
+
+const ChatGeneralSchema = model("chatGeneral", menssage);
+export default ChatGeneralSchema;

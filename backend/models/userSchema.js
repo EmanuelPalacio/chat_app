@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 const user = Schema({
   name: {
@@ -35,7 +35,18 @@ const user = Schema({
     type: Boolean,
     default: false,
   },
-  chat_history: { type: Array },
+  contacts: [
+    {
+      contact: {
+        type: Schema.Types.ObjectId,
+        ref: "users",
+      },
+      chat_history: {
+        type: Schema.Types.ObjectId,
+        ref: "usersChatHistory",
+      },
+    },
+  ],
 });
 //Metodo para renombrar id de mongo
 /* UsuarioSchema.methods.toJSON = function() {
