@@ -6,7 +6,6 @@ import { useContext } from "react";
 import { UserContext } from "./context/UserProvider.jsx";
 
 export default function App() {
-
   return (
     
       <Routes>

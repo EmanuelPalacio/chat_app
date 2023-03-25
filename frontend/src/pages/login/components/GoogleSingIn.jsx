@@ -7,7 +7,8 @@ import { findUser, googleLogin } from "../../../service/fetchApi.js";
 export default function GoogleSingIn (){
   const {setDataUser} = useContext(UserContext)
   const navigate = useNavigate()
-  async function  handleCredentialResponse(response) {
+  
+  /* async function  handleCredentialResponse(response) {
     const googleToken = response.credential
 
     const {name,email,picture:image} = jwt_decode(googleToken)
@@ -24,7 +25,12 @@ export default function GoogleSingIn (){
       localStorage.setItem("token", JSON.stringify(token))
       navigate(`/user/${user._id}`)
     }
-}
+} */
+  async function  handleCredentialResponse(response) {
+    const { credential } = response;
+    const resp = await googleLogin(credential)
+    console.log(resp)
+  }
   useEffect(()=>{
     window.onload = function () {
       google.accounts.id.initialize({

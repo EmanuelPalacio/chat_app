@@ -20,11 +20,11 @@ export const login = async (data) => {
   return await fetchApi({ params: "auth/login", method: "POST", body: data });
 };
 
-export const googleLogin = async (data) => {
+export const googleLogin = async (token) => {
   return await fetchApi({
     params: "auth/googleLogin",
     method: "POST",
-    body: data,
+    token,
   });
 };
 

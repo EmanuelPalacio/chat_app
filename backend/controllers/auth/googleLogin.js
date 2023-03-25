@@ -2,31 +2,32 @@ import { request, response } from "express";
 import bcryptjs from "bcryptjs";
 import userSchema from "../../models/userSchema.js";
 import generateJwt from "../../utils/generateJwt.js";
+import googleVerify from "../../utils/googleVerify.js";
 
 const googleLogin = async (req = request, res = response) => {
-  const googleUser = req.body;
   try {
-    let findUser = await userSchema.findOne({ email: googleUser.email });
+    const { token: googleToken } = req.headers;
+    const { email, name, picture } = await googleVerify(googleToken);
+    const findUser = await userSchema.findOne({ email });
 
     if (!findUser) {
       const salt = bcryptjs.genSaltSync();
       const userCreate = await userSchema.create({
-        ...googleUser,
+        email,
+        name,
+        image: picture,
         password: ":P",
+        google: true,
       });
       userCreate.password = bcryptjs.hashSync(userCreate.password, salt);
-      const data = await userCreate.save();
-      const { password, condition, ...rest } = data;
-      findUser = rest._doc;
-    } else {
-      const { password, condition, ...rest } = findUser._doc;
-      findUser = rest;
+      await userCreate.save();
     }
-    const token = await generateJwt(findUser._id, findUser.rol);
+    const { _id, rol } = findUser._doc;
+
+    const token = await generateJwt(_id, rol);
     res.status(200).json({
       ok: true,
       msg: "se recibio el token",
-      user: findUser,
       token,
     });
   } catch (error) {
