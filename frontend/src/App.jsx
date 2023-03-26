@@ -4,7 +4,7 @@ import Dashboard from './pages/chat/Dashboard.jsx';
 import Login from './pages/login/Login.jsx';
 
 export default function App() {
-  console.log(import.meta.env.DEV)
+  console.log(process.env.NODE_ENV)
   return (
     
       <Routes>
