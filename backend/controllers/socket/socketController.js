@@ -1,4 +1,4 @@
-import { io } from "../../server.js";
+import { io } from "../../config/index.js";
 import {
   createMenssage,
   findMenssages,

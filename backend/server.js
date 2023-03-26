@@ -1,31 +1,11 @@
 import express from "express";
-import mongoose from "mongoose";
 import cors from "cors";
-import dotenv from "dotenv";
-import { Server } from "socket.io";
-import { createServer } from "http";
-import { v2 as cloudinary } from "cloudinary";
 import router from "./routes/index.routes.js";
 import socketController from "./controllers/socket/socketController.js";
-
-dotenv.config();
-/* ------ Create Server ------- */
-const app = express();
-const server = createServer(app);
-export const io = new Server(server, {
-  /* options */
-  cors: {
-    origin: "*",
-  },
-});
+import { app, io, mongoAtlas, PORT, server } from "./config/index.js";
+import cloudinaryConfig from "./config/cloudinary.js";
 
 /* ------ SERVER CONFIG ------- */
-const PORT =
-  process.env.NODE_ENV === "development"
-    ? process.env.DEV_PORT
-    : process.env.PORT;
-
-console.log(PORT, process.env.NODE_ENV);
 
 app.use(
   cors({
@@ -44,17 +24,6 @@ server.listen(PORT, () => {
 /* ------ SOCKET IO ------- */
 io.on("connection", socketController);
 /* ------ CLOUDINARY ------- */
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRETS,
-});
-
+cloudinaryConfig();
 /* ------ CONNECT MONGODB ATLAS ------- */
-try {
-  mongoose.set("strictQuery", true);
-  mongoose.connect(process.env.MONGODB_CONNECTION);
-  console.log("exito al conectar con mongo atlas");
-} catch (error) {
-  console.log(error);
-}
+mongoAtlas();
